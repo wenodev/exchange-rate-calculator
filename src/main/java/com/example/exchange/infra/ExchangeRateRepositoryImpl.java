@@ -2,7 +2,9 @@ package com.example.exchange.infra;
 
 import com.example.exchange.domain.ExchangeRate;
 import com.example.exchange.domain.ExchangeRateRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
     private static final ExchangeRate exchangeRate = new ExchangeRate();
 
