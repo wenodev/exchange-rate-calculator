@@ -13,9 +13,7 @@ public class ExchangeService {
     }
 
     public ExchangeResponse findByCurrency(String name) {
-        System.out.println(">>>>>>>>>>>>>>>>> 11");
         Double rate = exchangeRateRepository.findRateByCurrency(name);
-        System.out.println(">>>>>>>>>>>>>>>>> 22");
         return new ExchangeResponse(rate);
     }
 }
