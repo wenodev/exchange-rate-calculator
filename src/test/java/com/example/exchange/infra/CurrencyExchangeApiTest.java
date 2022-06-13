@@ -1,15 +1,15 @@
 package com.example.exchange.infra;
 
-import com.example.exchange.dto.CurrencyResponse;
+import com.example.exchange.dto.ExchangeRateResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CurrencyExchangeApiTest {
     @Test
-    void test() {
+    void getAllCurrencyRate() {
         CurrencyExchangeApi currencyExchangeApi = new CurrencyExchangeApi();
-        CurrencyResponse allCurrencyRate = currencyExchangeApi.getAllCurrencyRate();
+        ExchangeRateResponse allCurrencyRate = currencyExchangeApi.getAllCurrencyRate();
         assertThat(allCurrencyRate.isSuccess()).isTrue();
     }
 }

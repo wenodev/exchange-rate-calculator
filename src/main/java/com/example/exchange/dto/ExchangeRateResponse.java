@@ -1,8 +1,10 @@
 package com.example.exchange.dto;
 
+import com.example.exchange.domain.ExchangeRate;
+
 import java.util.Map;
 
-public class CurrencyResponse {
+public class ExchangeRateResponse {
     private boolean success;
     private Map<String, Double> quotes;
 
@@ -12,5 +14,9 @@ public class CurrencyResponse {
 
     public Map<String, Double> getQuotes() {
         return quotes;
+    }
+
+    public ExchangeRate toExchangeRate() {
+        return new ExchangeRate(quotes);
     }
 }
