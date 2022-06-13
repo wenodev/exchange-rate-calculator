@@ -1,4 +1,4 @@
-package com.example.exchange.api;
+package com.example.exchange.contorller.api;
 
 import com.example.exchange.application.ExchangeService;
 import com.example.exchange.dto.ExchangeResponse;
