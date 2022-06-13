@@ -9,18 +9,34 @@
 <div> 송금국가: 미국(USD)</div>
 <div>
     수취국기:
-    <select>
-        <option value="KRW" selected="selected">한국(KRW)</option>
+    <select id="nation-select-box" onchange="changeNation()">
+        <option value="">통화선택</option>
+        <option value="KRW">한국(KRW)</option>
         <option value="JPY">일본(JPY)</option>
         <option value="PHP">필리핀(PHP)</option>
     </select>
 </div>
-<div>환율:</div>
+<div>환율: <span id="rate"></span> </div>
 <div>송금액:
     <input type="number" name="price" placeholder="송금액 입력"> USD
 </div>
 <div>
     <button>Submit</button>
 </div>
+
+<script>
+    async function changeNation(){
+        let langSelect = document.getElementById("nation-select-box");
+        let selectValue = langSelect.options[langSelect.selectedIndex].value;
+
+       const rate = await fetch('http://localhost:8080/currency/' + selectValue)
+                .then((response) => response.json())
+                .then((data) => {
+                  return data.rate;
+                });
+       let rateEle = document.getElementById("rate");
+       rateEle.innerHTML += rate;
+    }
+</script>
 </body>
 </html>
