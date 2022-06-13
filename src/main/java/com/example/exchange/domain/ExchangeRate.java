@@ -3,6 +3,7 @@ package com.example.exchange.domain;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ExchangeRate {
     private static final String USD = "USD";
@@ -27,8 +28,8 @@ public class ExchangeRate {
     public void add(ExchangeRate exchangeRate) {
         Arrays.stream(Currency.values())
                 .filter(currency -> exchangeRate.containsKey(USD + currency.name()))
-                .findFirst()
-                .ifPresent(currency -> {
+                .collect(Collectors.toList())
+                .forEach(currency -> {
                     Double rate = exchangeRate.getValues().get(USD + currency.name());
                     values.put(currency.name(), rate);
                 });
