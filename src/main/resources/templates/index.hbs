@@ -16,26 +16,57 @@
         <option value="PHP">필리핀(PHP)</option>
     </select>
 </div>
-<div>환율: <span id="rate"></span> </div>
+<div>환율: <span id="rate"></span></div>
 <div>송금액:
-    <input type="number" name="price" placeholder="송금액 입력"> USD
+    <input type="number" id="remittance" placeholder="송금액 입력"> USD
 </div>
 <div>
-    <button>Submit</button>
+    <button onclick="calculate()">Submit</button>
 </div>
 
-<script>
-    async function changeNation(){
-        let langSelect = document.getElementById("nation-select-box");
-        let selectValue = langSelect.options[langSelect.selectedIndex].value;
+<div id="amount-received"></div>
 
-       const rate = await fetch('http://localhost:8080/currency/' + selectValue)
+<script>
+    async function changeNation() {
+        const langSelect = document.getElementById("nation-select-box");
+        const selectValue = langSelect.options[langSelect.selectedIndex].value;
+
+        const rate = await fetch('http://localhost:8080/currency/' + selectValue)
                 .then((response) => response.json())
                 .then((data) => {
-                  return data.rate;
+                    return data.rate;
                 });
         let rateEle = document.getElementById("rate");
         rateEle.innerHTML = rate;
+    }
+
+    async function calculate() {
+        const remittance = document.getElementById("remittance").value;
+        const langSelect = document.getElementById("nation-select-box");
+        const selectValue = langSelect.options[langSelect.selectedIndex].value;
+
+        const data = {
+            remittance: remittance,
+            currency: selectValue
+        };
+
+        const price = await fetch('http://localhost:8080/price', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+                .then((response) => response.json())
+                .then((data) => {
+                    return data.price;
+                })
+                .catch((error) => {
+                    console.error('실패:', error);
+                });
+
+        let amountEle = document.getElementById("amount-received");
+        amountEle.innerHTML = "수취금액은 " + price + " KRW 입니다";
     }
 </script>
 </body>
